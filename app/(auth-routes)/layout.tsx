@@ -16,5 +16,5 @@ export default async function PrivateLayout({ children }: PrivateLayoutProps) {
     redirect("/dashboard")
   }
 
-  return <div>{children}</div>
+  return <div className="bg-slate-100">{children}</div>
 }

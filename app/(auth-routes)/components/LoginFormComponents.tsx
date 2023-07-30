@@ -80,7 +80,7 @@ export function LoginFormComponents({
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign
+            Login
           </Button>
         </div>
       </form>
