@@ -1,44 +1,38 @@
-import "@/styles/globals.css"
-import { Metadata } from "next"
+import Link from "next/link"
 
-import { siteConfig } from "@/config/site"
-import { SiteHeader } from "@/components/site-header"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
+import { marketingConfig } from "@/config/marketing"
+import { cn } from "@/lib/utils"
+import { buttonVariants } from "@/components/ui/button"
+import { MainNav } from "@/components/main-nav"
+import { SiteFooter } from "@/components/site-footer"
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
-  },
-  description: siteConfig.description,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-}
-
-interface HomeLayoutProps {
+interface MarketingLayoutProps {
   children: React.ReactNode
 }
 
-export default function HomeLayout({ children }: HomeLayoutProps) {
+export default async function MarketingLayout({
+  children,
+}: MarketingLayoutProps) {
   return (
-    <>
-      <section>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <div className="relative flex min-h-screen flex-col">
-            <SiteHeader />
-            <div className="flex-1">{children}</div>
-          </div>
-          <TailwindIndicator />
-        </ThemeProvider>
-      </section>
-    </>
+    <div className="flex min-h-screen flex-col">
+      <header className="container z-40 bg-background">
+        <div className="flex h-20 items-center justify-between py-6">
+          <MainNav items={marketingConfig.mainNav} />
+          <nav>
+            <Link
+              href="/login"
+              className={cn(
+                buttonVariants({ variant: "secondary", size: "sm" }),
+                "px-4"
+              )}
+            >
+              Login
+            </Link>
+          </nav>
+        </div>
+      </header>
+      <main className="flex-1">{children}</main>
+      <SiteFooter />
+    </div>
   )
 }
