@@ -13,6 +13,11 @@ export const siteConfig = {
       title: "Product",
       href: "/",
     },
+    {
+      title: "Login",
+      href: "/login",
+    },
+
   ],
   links: {
     twitter: "/",

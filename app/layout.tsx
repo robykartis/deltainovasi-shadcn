@@ -1,3 +1,7 @@
+import "@/styles/globals.css"
+import { fontSans } from "@/lib/fonts"
+import { cn } from "@/lib/utils"
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +9,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>{children}</body>
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable
+        )}
+      >
+        {children}
+      </body>
     </html>
   )
 }
