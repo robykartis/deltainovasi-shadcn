@@ -7,37 +7,38 @@ import { getServerSession } from "next-auth"
 import { nextAuthOptions } from "../api/auth/[...nextauth]/route"
 import { MainNav } from "@/components/main-nav"
 import { dashboardConfig } from "@/config/dashboard"
+import { DashboardNav } from "@/components/nav"
 import { SiteFooter } from "@/components/site-footer"
-import ButtonLogout from "./components/ButtonLogout"
-import { docsConfig } from "@/config/docs"
 
 interface PrivateLayoutProps {
   children: ReactNode
 }
+
 export default async function PrivateLayout({ children }: PrivateLayoutProps) {
   const session = await getServerSession(nextAuthOptions)
 
   if (!session) {
     redirect("/")
   }
+
   return (
     <>
       <NextAuthSessionProvider>
-        <div className="flex min-h-screen flex-col">
-          <header className="sticky top-0 z-40 w-full border-b bg-background">
-            <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-              <MainNav items={docsConfig.mainNav}>
-                <DocsSidebarNav items={docsConfig.sidebarNav} />
-              </MainNav>
-              <div className="flex flex-1 items-center space-x-4 sm:justify-end">
-                <div className="flex-1 sm:grow-0">
-                  <ButtonLogout></ButtonLogout>
-                </div>
+        <div className="flex min-h-screen flex-col space-y-6">
+          <header className="sticky top-0 z-40 border-b bg-background">
+            <div className="container flex h-16 items-center justify-between py-4">
+              <MainNav items={dashboardConfig.mainNav} />
 
-              </div>
             </div>
           </header>
-          <div className="container flex-1">{children}</div>
+          <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
+            <aside className="hidden w-[200px] flex-col md:flex">
+              <DashboardNav items={dashboardConfig.sidebarNav} />
+            </aside>
+            <main className="flex w-full flex-1 flex-col overflow-hidden">
+              {children}
+            </main>
+          </div>
           <SiteFooter className="border-t" />
         </div>
       </NextAuthSessionProvider>
