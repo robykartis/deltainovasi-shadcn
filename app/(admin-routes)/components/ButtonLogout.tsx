@@ -17,7 +17,7 @@ export default function ButtonLogout() {
   }
 
   return (
-    <Button onClick={logout} variant={"outline"}>
+    <Button onClick={logout} className="bg-pink-500 hover:bg-pink-700" >
       Logout
     </Button>
   )
